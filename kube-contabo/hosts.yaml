@@ -1,0 +1,45 @@
+all:
+  hosts:
+    node1:
+      ansible_host: 154.53.45.187
+      ip: 154.53.45.187
+      access_ip: 154.53.45.187
+    node2:
+      ansible_host: 154.53.40.204
+      ip: 154.53.40.204
+      access_ip: 154.53.40.204
+    node3:
+      ansible_host: 154.53.40.145
+      ip: 154.53.40.145
+      access_ip: 154.53.40.145
+    node4:
+      ansible_host: 154.53.46.87
+      ip: 154.53.46.87
+      access_ip: 154.53.46.87
+    node5:
+      ansible_host: 154.53.45.199
+      ip: 154.53.45.199
+      access_ip: 154.53.45.199
+  children:
+    kube_control_plane:
+      hosts:
+        node1:
+        node2:
+        node3:
+    kube_node:
+      hosts:
+        node2:
+        node3:
+        node4:
+        node5:
+    etcd:
+      hosts:
+        node1:
+        node2:
+        node3:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}
